@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debate Club Buzz Event</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 100px;
+      background: #f0f0f0;
+    }
+    #quiz-box {
+      background: white;
+      padding: 30px;
+      margin: auto;
+      width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    input {
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="quiz-box">
+    <h2 id="question">Loading...</h2>
+    <input type="text" id="answer" placeholder="Type your answer here" />
+    <br>
+    <button onclick="checkAnswer()">Submit</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    const questions = [
+      { q: "What is mishtis favourite sutta?", a: "connect" },
+      { q: "Who is shabtaabs favourite junior?", a: "mishti" },
+      { q: "What is mishtis flat number ?", a: "503" }
+    ];
+
+    let current = 0;
+
+    function loadQuestion() {
+      if (current < questions.length) {
+        document.getElementById("question").innerText = questions[current].q;
+        document.getElementById("answer").value = "";
+        document.getElementById("message").innerText = "";
+      } else {
+        document.getElementById("quiz-box").innerHTML = `
+          <h2>Well done!</h2>
+          <p>Final Hint: Check your email for the final clue!</p>
+        `;
+      }
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById("answer").value.trim().toLowerCase();
+      if (input === questions[current].a.toLowerCase()) {
+        current++;
+        loadQuestion();
+      } else {
+        document.getElementById("message").innerText = "Incorrect. Try again.";
+      }
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
